@@ -47,6 +47,30 @@ class Moderator:
                 self.connect.rollback()
                 print('There was a problem with SQL Data Base')
 
+    @classmethod
+    def get_by_id(cls, id):
+        """ Retrieves moderator item with given id from database.
+        Args:
+            id(int): item id
+        Returns:
+            Moderator: Moderator object with a given id
+        """
+        try:
+            cls.connect = sqlite3.connect("cms.db")
+            cls.cur = cls.connect.cursor()
+
+            cls.cur.execute("SELECT * FROM Moderator WHERE IDX=(?);", [id])
+            moderator = cls.cur.fetchall()[0]
+            return Moderator(moderator[0], moderator[1], moderator[2])
+
+        except sqlite3.OperationalError as w:
+            print("Cant find this {}".format(w))
+
+        except sqlite3.Error:
+            if cls.connect:
+                cls.connect.rollback()
+                print('There was a problem with SQL Data Base')
+
     @staticmethod
     def findModerator(moderator_login, moderator_password):
         connect = sqlite3.connect('cms.db')

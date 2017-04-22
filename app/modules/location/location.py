@@ -5,6 +5,8 @@ class Location:
     location_list = []
 
     def __init__(self, name, beaconIDX, moderatorIDX, idx=0):
+        self.connect = sqlite3.connect("cms.db")
+        self.cur = self.connect.cursor()
         self.idx = idx
         self.name = name
         self.beaconIDX = beaconIDX
@@ -69,3 +71,27 @@ class Location:
         except sqlite3.Error:
             if cls.connect:
                 cls.connect.rollback()
+
+    @classmethod
+    def get_by_id(cls, id):
+        """ Retrieves location item with given id from database.
+        Args:
+            id(int): item id
+        Returns:
+            Location: Location object with a given id
+        """
+        try:
+            cls.connect = sqlite3.connect("cms.db")
+            cls.cur = cls.connect.cursor()
+
+            cls.cur.execute("SELECT * FROM Location WHERE IDX=(?);", [id])
+            location = cls.cur.fetchall()[0]
+            return Location(location[0], location[1], location[2], location[3])
+
+        except sqlite3.OperationalError as w:
+            print("Cant find this {}".format(w))
+
+        except sqlite3.Error:
+            if cls.connect:
+                cls.connect.rollback()
+                print('There was a problem with SQL Data Base')

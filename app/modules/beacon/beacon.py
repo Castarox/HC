@@ -43,6 +43,29 @@ class Beacon:
                 self.connect.rollback()
                 print('There was a problem with SQL Data Base')
 
+    @classmethod
+    def get_by_id(cls, id):
+        """ Retrieves beacon item with given id from database.
+        Args:
+            id(int): item id
+        Returns:
+            Beacon: Beacon object with a given id
+        """
+        try:
+            cls.connect = sqlite3.connect("cms.db")
+            cls.cur = cls.connect.cursor()
+
+            cls.cur.execute("SELECT * FROM Beacon WHERE IDX=(?);", [id])
+            beacon = cls.cur.fetchall()[0]
+            return Beacon(beacon[0], beacon[1])
+
+        except sqlite3.OperationalError as w:
+            print("Cant find this {}".format(w))
+
+        except sqlite3.Error:
+            if cls.connect:
+                cls.connect.rollback()
+                print('There was a problem with SQL Data Base')
 
     def close_database(self):
         self.connect.close()
