@@ -11,7 +11,7 @@ def index():
     if request.method == "POST":
         login = request.form.get('login')
         password = request.form.get('password')
-        person = User.isUser(login, password)
+        person = User.findUser(login, password)
         if person == None:
             return render_template('error_login.html')
         log_in['logged_in'] = True
