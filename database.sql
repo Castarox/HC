@@ -4,7 +4,7 @@ CREATE TABLE `User` (
 	`IDX`	INTEGER,
 	`Login`	TEXT,
 	`Password`	TEXT,
-	'Status'	TEXT,
+	`Status`	TEXT,
 	`Level`	INTEGER,
 	PRIMARY KEY(IDX)
 );
@@ -12,7 +12,7 @@ DROP TABLE 'Moderator';
 CREATE TABLE 'Moderator' (
 	`IDX`	INTEGER,
 	`UserIDX`	INTEGER,
-	'LocalizationIDX' INTEGER,
+	`LocalizationIDX` INTEGER,
 	PRIMARY KEY(IDX)
 );
 DROP TABLE `Question`;
@@ -35,10 +35,27 @@ CREATE TABLE `Location` (
 );
 DROP TABLE `Beacon`;
 CREATE TABLE `Beacon` (
-	`IDX`	INTEGER,
-	`BeaconIDX`	INTEGER,
+	`IDX`	        INTEGER,
+	`BeaconIDX`	    INTEGER,
 	PRIMARY KEY(IDX)
 );
+DROP TABLE `VisitedLocations`;
+CREATE TABLE `VisitedLocations` (
+	`IDX`	        INTEGER,
+	`UserIDX`       INTEGER,
+	`LocationIDX`	INTEGER,
+    `Visited`	    BOOLEAN,
+	PRIMARY KEY(IDX)
+);
+DROP TABLE `VisitedLocations`;
+CREATE TABLE `VisitedLocations` (
+	`IDX`	        INTEGER,
+	`UserIDX`       INTEGER,
+	`LocationIDX`	INTEGER,
+    `Visited`	    BOOLEAN,
+	PRIMARY KEY(IDX)
+);
+
 
 INSERT INTO `User` (Login, Password, Level) VALUES ('Marcin', 'xxx', 0);
 INSERT INTO `Moderator` (UserIDX, LocalizationIDX) VALUES (1, 1);
