@@ -47,14 +47,6 @@ CREATE TABLE `VisitedLocations` (
     `Visited`	    BOOLEAN,
 	PRIMARY KEY(IDX)
 );
-DROP TABLE `VisitedLocations`;
-CREATE TABLE `VisitedLocations` (
-	`IDX`	        INTEGER,
-	`UserIDX`       INTEGER,
-	`LocationIDX`	INTEGER,
-    `Visited`	    BOOLEAN,
-	PRIMARY KEY(IDX)
-);
 
 
 INSERT INTO `User` (Login, Password, Level) VALUES ('Marcin', 'xxx', 0);
