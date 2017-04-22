@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session as log_in
 from app.modules.decorator import *
-from app.modules.user.user import *
+from app.modules.moderator.moderator import Moderator
 app = Flask(__name__)
 
 app.config.from_object('config')
@@ -11,7 +11,7 @@ def index():
     if request.method == "POST":
         login = request.form.get('login')
         password = request.form.get('password')
-        person = User.findUser(login, password)
+        person = Moderator.findModerator(login, password)
         if person == None:
             return render_template('error_login.html')
         log_in['logged_in'] = True

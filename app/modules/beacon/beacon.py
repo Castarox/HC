@@ -28,7 +28,7 @@ class Beacon:
             if self.connect:
                 self.connect.rollback()
                 print('There was a problem with SQL Data Base')
-    
+
     def delete(self):
         """ Removes beacon item from the database """
         try:
@@ -42,3 +42,7 @@ class Beacon:
             if self.connect:
                 self.connect.rollback()
                 print('There was a problem with SQL Data Base')
+
+
+    def close_database(self):
+        self.connect.close()
