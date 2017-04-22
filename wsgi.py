@@ -5,6 +5,9 @@ from app.modules.beacon.beacon import Beacon
 from app.modules.location.location import Location
 
 
+
+
+
 if __name__ == '__main__':
     Sql.load_database()
     # question1 = Question(1, "bla", "bla", "bleesdghsrth", "bla", "bla", )
