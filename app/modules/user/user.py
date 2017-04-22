@@ -59,7 +59,9 @@ class User:
             user = cur.fetchall()[0]
             if (user):
                 return User(user[1], user[2], user[3], user[4], user[0])
-
+            else:
+                return None
+            
         except sqlite3.Error:
             if connect:
                 connect.rollback()
