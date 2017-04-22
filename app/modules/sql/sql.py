@@ -26,5 +26,6 @@ class Sql:
             except OperationalError as msg:
                 print("Command skipped: ", msg, command)
 
+        conn.commit()
         c.close()
         conn.close()
