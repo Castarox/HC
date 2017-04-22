@@ -4,7 +4,7 @@ import sqlite3
 
 class Moderator:
 
-    def __init__(self, login, password, level, status, idx=0):
+    def __init__(self, login, password, idx=0):
         self.connect = sqlite3.connect("cms.db")
         self.cur = self.connect.cursor()
         self.idx = idx
@@ -66,4 +66,7 @@ class Moderator:
         finally:
             if connect:
                 connect.close()
+
+    def close_database(self):
+        self.connect.close()
 
