@@ -10,7 +10,7 @@ class Sql:
 
         """
 
-        conn = sqlite3.connect('cms.db')
+        conn = sqlite3.connect('../../cms.db')
         c = conn.cursor()
 
         # Open and read the file as a single buffer
