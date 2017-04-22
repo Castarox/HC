@@ -18,10 +18,11 @@ def index():
             return render_template('error_login.html')
         log_in['logged_in'] = True
         log_in['login'] = person.login
+        locations = Location.get_all(1)
+        return render_template('layout.html', login=log_in['login'], locations=locations)
 
-        return render_template('layout.html', login=log_in['login'])
-
-    return render_template('index.html')
+    locations = Location.get_all(1)
+    return render_template('index.html', locations=locations)
 
 
 @app.route("/add-moderator", methods=['GET', 'POST'])
@@ -34,3 +35,4 @@ def add():
     new_moderator = Moderator(login, password)
     new_moderator.save()
     return render_template('add-moderator.html', added="Moderator added.")
+
