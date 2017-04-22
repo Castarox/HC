@@ -19,5 +19,3 @@ class Question:
         cursor.execute("INSERT INTO Question (LocationIDX, Question, Answer1, Answer2, Answer3, CorrectAnswer) VALUES (?, ?, ?, ?, ?, ?);", params)
         base.commit()
         base.close()
-
-    def edit(self, ):

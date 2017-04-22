@@ -5,6 +5,7 @@ from app.modules.beacon.beacon import Beacon
 from app.modules.location.location import Location
 
 
+
 if __name__ == '__main__':
     Sql.load_database()
     # question1 = Question(1, "bla", "bla", "bleesdghsrth", "bla", "bla", )
@@ -13,4 +14,4 @@ if __name__ == '__main__':
     # bikon1.save()
     # lokacja1 = Location("fsf", 4)
     # lokacja1.save()
-    app.run()
+    app.run(debug=True)
