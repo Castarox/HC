@@ -26,8 +26,10 @@ def index():
 
 @app.route("/add-moderator", methods=['GET', 'POST'])
 def add():
-    if request.method == "GET"
-        locations = Location.get_all(1)
-        return render_template('add-moderator.html', locations = locations)
+    if request.method == "GET":
+        return render_template('add-moderator.html')
     login = request.form.get('login')
-    password = request.form.get('passsword')
+    password = request.form.get('password')
+    new_moderator = Moderator(login, password)
+    new_moderator.save()
+    return render_template('add-moderator.html', added="Moderator added.")
