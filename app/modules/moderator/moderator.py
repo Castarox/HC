@@ -2,7 +2,7 @@ from app.modules.sql import sql
 import sqlite3
 
 
-class User:
+class Moderator:
 
     def __init__(self, login, password, level, status, idx=0):
         self.connect = sqlite3.connect("cms.db")
@@ -10,21 +10,19 @@ class User:
         self.idx = idx
         self.login = login
         self.password = password
-        self.level = level
-        self.points = points
 
     def save(self):
-        """ Saves/updates user item in database """
+        """ Saves/updates moderator item in database """
         try:
-            in_database = self.cur.execute("SELECT EXISTS(SELECT * FROM User WHERE IDX=(?));", str(self.idx))
+            in_database = self.cur.execute("SELECT EXISTS(SELECT * FROM Moderator WHERE IDX=(?));", str(self.idx))
             in_database = in_database.fetchall()[0][0]
             if not in_database:
-                self.cur.execute("INSERT INTO User(Login, Password, Level, Points) VALUES(?,?,?,?);",
-                (self.login, self.password, self.level, self.points))
+                self.cur.execute("INSERT INTO Moderator(Login, Password) VALUES(?,?);",
+                (self.login, self.password))
                 self.connect.commit()
             elif in_database:
-                self.cur.execute("UPDATE User SET Login=(?), Password=(?), Level=(?), Points=(?) WHERE IDX=(?);",
-                                 (self.login, self.password, self.level, self.points, str(self.idx)))
+                self.cur.execute("UPDATE Moderator SET Login=(?), Password=(?) WHERE IDX=(?);",
+                                 (self.login, self.password, str(self.idx)))
                 self.connect.commit()
 
         except sqlite3.OperationalError as w:
@@ -36,9 +34,9 @@ class User:
                 print('There was a problem with SQL Data Base')
 
     def delete(self):
-        """ Removes user item from the database """
+        """ Removes moderator item from the database """
         try:
-            self.cur.execute("DELETE FROM User WHERE IDX=(?);", str(self.idx))
+            self.cur.execute("DELETE FROM Moderator WHERE IDX=(?);", str(self.idx))
             self.connect.commit()
 
         except sqlite3.OperationalError as w:
@@ -50,16 +48,16 @@ class User:
                 print('There was a problem with SQL Data Base')
 
     @staticmethod
-    def findUser(user_login, user_password):
+    def findModerator(moderator_login, moderator_password):
         connect = sqlite3.connect('cms.db')
         cur = connect.cursor()
         try:
-            cur.execute("SELECT * FROM `User` WHERE Login =(?) AND Password =(?)", (user_login, user_password))
+            cur.execute("SELECT * FROM `Moderator` WHERE Login =(?) AND Password =(?)", (moderator_login, moderator_password))
             try:
-                user = cur.fetchall()[0]
+                moderator = cur.fetchall()[0]
             except:
                 return None
-            return User(user[1], user[2], user[3], user[4], user[0])
+            return Moderator(moderator[1], moderator[2], moderator[0])
 
         except sqlite3.Error:
             if connect:
