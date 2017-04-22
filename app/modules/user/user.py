@@ -50,7 +50,7 @@ class User:
                 print('There was a problem with SQL Data Base')
 
     @staticmethod
-    def isUser(user_login, user_password):
+    def findUser(user_login, user_password):
         try:
             connect = sqlite3.connect('cms.db')
             cur = connect.cursor()
