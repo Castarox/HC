@@ -23,6 +23,6 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/main', methods=['GET'])
-def main():
-    render_template()
+@app.route("/add-moderator", methods=['GET', 'POST'])
+def add():
+    return render_template('add-moderator.html')
