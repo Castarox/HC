@@ -10,7 +10,7 @@ class Sql:
 
         """
 
-        conn = sqlite3.connect('../../cms.db')
+        conn = sqlite3.connect('cms.db')
         c = conn.cursor()
 
         # Open and read the file as a single buffer
@@ -26,5 +26,6 @@ class Sql:
             except OperationalError as msg:
                 print("Command skipped: ", msg, command)
 
+        conn.commit()
         c.close()
         conn.close()
