@@ -22,8 +22,19 @@
 </div>
 
 <div class="container">
+
+
+{% for location in locations %}
+    <h3>
+    {{ location.name|urlize(40, target='_blank') }}
+        <a href="/edit/{{ location.idx }}" ><button>Edit</button></a>
+        <a href="/remove/{{ location.idx }}"><button>Remove</button></a>
+        <a href="/add_question/{{ location.idx }}"><button>Add question</button></a>
+    </h3>
+{% endfor %}
+
 <h3>
-    <a href="/add-moderator">Add moderator</a>
+    <a href="/add-location">Add location</a>
 </h3>
 </div>
 

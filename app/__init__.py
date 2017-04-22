@@ -18,8 +18,8 @@ def index():
             return render_template('error_login.html')
         log_in['logged_in'] = True
         log_in['login'] = person.login
-
-        return render_template('layout.html', login=log_in['login'])
+        locations = Location.get_all(1)
+        return render_template('layout.html', login=log_in['login'], locations = locations)
 
     return render_template('index.html')
 
@@ -27,10 +27,8 @@ def index():
 @app.route("/add-moderator", methods=['GET', 'POST'])
 def add():
     if request.method == "GET":
-        locations = Location.get_all(1)
-        return render_template('add-moderator.html', locations = locations)
-    login = request.form.get('login')
-    password = request.form.get('password')
-    new_moderator = Moderator(login, password)
-    new_moderator.save()
-    return render_template('add-moderator.html', added="Moderator added.")
+        login = request.form.get('login')
+        password = request.form.get('password')
+        new_moderator = Moderator(login, password)
+        new_moderator.save()
+        return render_template('add-moderator.html', added="Moderator added.")
