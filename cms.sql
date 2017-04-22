@@ -4,7 +4,7 @@ CREATE TABLE `User` (
 	`IDX`	INTEGER,
 	`Login`	TEXT,
 	`Password`	TEXT,
-	`Status`	TEXT,
+	`Points`	INTEGER,
 	`Level`	INTEGER,
 	PRIMARY KEY(IDX)
 );
