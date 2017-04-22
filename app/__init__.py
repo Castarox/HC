@@ -25,14 +25,13 @@ def index():
     return render_template('index.html', locations=locations)
 
 
+
 @app.route("/add-moderator", methods=['GET', 'POST'])
 def add():
     if request.method == "GET":
-        locations = Location.get_all(1)
-        return render_template('add-moderator.html', locations = locations)
-    login = request.form.get('login')
-    password = request.form.get('password')
-    new_moderator = Moderator(login, password)
-    new_moderator.save()
-    return render_template('add-moderator.html', added="Moderator added.")
+        login = request.form.get('login')
+        password = request.form.get('password')
+        new_moderator = Moderator(login, password)
+        new_moderator.save()
+        return render_template('add-moderator.html', added="Moderator added.")
 
