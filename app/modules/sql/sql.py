@@ -14,7 +14,7 @@ class Sql:
         c = conn.cursor()
 
         # Open and read the file as a single buffer
-        fd = open('todo.sql', 'r')
+        fd = open('cms.sql', 'r')
         sqlFile = fd.read()
         fd.close()
         sqlCommands = sqlFile.split(';')
