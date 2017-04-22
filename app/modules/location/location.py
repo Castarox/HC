@@ -47,10 +47,11 @@ class Location:
     def close_database(self):
         self.connect.close()
 
+    @classmethod
     def get_all(cls, moderatorIDX):
         """ Retrieves all Locations form database and returns them as list.
         Returns:
-            list(Todo): list of all locations
+            list(location): list of all locations
         """
         try:
             # connect to database
@@ -58,7 +59,7 @@ class Location:
             cls.cur = cls.connect.cursor()
             cls.location_list = []
 
-            for item in cls.cur.execute("SELECT * FROM Location WHERE ModeratorIDX = (?);", moderatorIDX):
+            for item in cls.cur.execute("SELECT * FROM Location WHERE ModeratorIDX = (?);", [moderatorIDX]):
                 cls.location_list.append(Location(item[0], item[1], item[2], item[3]))
             return cls.location_list
 
