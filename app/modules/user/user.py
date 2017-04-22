@@ -49,6 +49,29 @@ class User:
                 self.connect.rollback()
                 print('There was a problem with SQL Data Base')
 
+    def get_by_id(cls, id):
+        """ Retrieves user item with given id from database.
+        Args:
+            id(int): item id
+        Returns:
+            User: User object with a given id
+        """
+        try:
+            cls.connect = sqlite3.connect("cms.db")
+            cls.cur = cls.connect.cursor()
+
+            cls.cur.execute("SELECT * FROM User WHERE IDX=(?);", [id])
+            user = cls.cur.fetchall()[0]
+            return User(user[0], user[1], user[2], user[3], user[4])
+
+        except sqlite3.OperationalError as w:
+            print("Cant find this {}".format(w))
+
+        except sqlite3.Error:
+            if cls.connect:
+                cls.connect.rollback()
+                print('There was a problem with SQL Data Base')
+
     @staticmethod
     def findUser(user_login, user_password):
         connect = sqlite3.connect('cms.db')
