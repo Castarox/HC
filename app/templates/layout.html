@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewpoint" content="witdh=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css?family=Abel|Nova+Mono" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <title>Your site</title>
+    {% endblock %}
+</head>
+
+  <body>
+        {% block solid_component %}
+        <aside class='solid_component'>
+        Logged as {{ login }}
+        <ul id="dupa">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <p id="czerw">jakis tekst</p>
+        </aside>
+        {% endblock %}
+  </body>
+</html>

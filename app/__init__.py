@@ -11,16 +11,14 @@ def index():
     if request.method == "POST":
         login = request.form.get('login')
         password = request.form.get('password')
-        # person = User.find_user(login, password)
-        person = None
-        # if person == None:
-        #     return render_template('error_login.html')
+        person = User.isUser(login, password)
+        if person == None:
+            return render_template('error_login.html')
         log_in['logged_in'] = True
-        log_in['login'] = "Durax"  #person.login
-        log_in['level'] = "15"  #person.level
-        log_in['status'] = "user"  #person.status
-        dupa = "dupaaa"
-        return render_template('layout.html', user=log_in['login'])
+        log_in['login'] = person.login
+        log_in['level'] = person.level
+        log_in['status'] = person.status
+        return render_template('layout.html', login=log_in['login'])
 
     return render_template('index.html')
 

@@ -5,3 +5,11 @@
 #czerw {
     color: red;
 }
+
+.solid_component {
+    background-color: #FBF7F7;
+    left: 10px;
+    float: left;
+    display: block;
+    width:  15%;
+}
