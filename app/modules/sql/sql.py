@@ -1,35 +1,30 @@
 import sqlite3
+from sqlite3 import OperationalError
 
+class Sql:
 
-def connect_db(DATABASE_NAME='CCMS.db'):
-    return sqlite3.connect(DATABASE_NAME)
+    @staticmethod
+    def load_database():
+        """
+        Its a function to remove database if its existing and create a new one using a script in sql format
 
+        """
 
-def query(query, params=''):
-    """
-    :param query: query with ?
-    :param params: list or tuple of params (replace ?)
-    :return: list of object or null
-    """
-    #query = "SELECT * FROM Users WHERE `E-mail` =? and `password`=?"
-    #params = list([login, password])
+        conn = sqlite3.connect('cms.db')
+        c = conn.cursor()
 
-    query_result = list()
-    conn = connect_db()
-    conn.row_factory = sqlite3.Row
-    c = conn.cursor()
+        # Open and read the file as a single buffer
+        fd = open('todo.sql', 'r')
+        sqlFile = fd.read()
+        fd.close()
+        sqlCommands = sqlFile.split(';')
 
-    for row in c.execute(query, params):
+        # Execute every command from the input file
+        for command in sqlCommands:
+            try:
+                c.execute(command)
+            except OperationalError as msg:
+                print("Command skipped: ", msg, command)
 
-        query_result.append(row)
-
-    conn.commit()
-
-    close_db(conn)
-
-    if query_result != []:
-        return query_result
-
-
-def close_db(conn):
-    conn.close()
+        c.close()
+        conn.close()

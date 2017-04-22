@@ -1,5 +1,5 @@
 BEGIN TRANSACTION;
-DROP TABLE 'User';
+DROP TABLE `User`;
 CREATE TABLE `User` (
 	`IDX`	INTEGER,
 	`Login`	TEXT,
@@ -8,8 +8,8 @@ CREATE TABLE `User` (
 	`Level`	INTEGER,
 	PRIMARY KEY(IDX)
 );
-DROP TABLE 'Moderator';
-CREATE TABLE 'Moderator' (
+DROP TABLE `Moderator`;
+CREATE TABLE `Moderator` (
 	`IDX`	INTEGER,
 	`UserIDX`	INTEGER,
 	`LocalizationIDX` INTEGER,
