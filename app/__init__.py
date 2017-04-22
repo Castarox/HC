@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from app.modules.decorator import *
+
 app = Flask(__name__)
 
 app.config.from_object('config')

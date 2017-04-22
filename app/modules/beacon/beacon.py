@@ -1,16 +1,24 @@
 import sqlite3
+from sqlite3 import OperationalError
 
 class Beacon:
 
-    def __init__(self, id, beacon_id):
-        self.id = id
+    def __init__(self, beacon_id):
+        self.connect = sqlite3.connect("cms.db")
+        self.cur = self.connect.cursor()
         self.beacon_id = beacon_id
 
     def save(self):
         """ Saves beacon in database """
-        base = sqlite3.connect('cms.db')
-        cursor = base.cursor()
-        params = [self.id, self.beacon_id]
-        cursor.execute("INSERT INTO Beacon (id, beacon_id) VALUES (?, ?);", params)
-        base.commit()
-        base.close()
+        print(self.beacon_id)
+        try:
+            self.cur.execute("INSERT INTO Beacon (BeaconIDX) VALUES (?);", [self.beacon_id])
+            self.connect.commit()
+
+        except sqlite3.OperationalError as w:
+            print("Cant add/edit this {}".format(w))
+
+        except sqlite3.Error:
+            if self.connect:
+                self.connect.rollback()
+                print('There was a problem with SQL Data Base')
