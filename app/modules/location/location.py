@@ -4,10 +4,11 @@ class Location:
 
     location_list = []
 
-    def __init__(self, name, beaconIDX, idx=0):
+    def __init__(self, name, beaconIDX, moderatorIDX, idx=0):
         self.idx = idx
         self.name = name
         self.beaconIDX = beaconIDX
+        self.moderatorIDX = moderatorIDX
 
     def save(self):
         """ Saves/updates location item in database """
@@ -15,10 +16,10 @@ class Location:
             in_database = self.cur.execute("SELECT EXISTS(SELECT * FROM Location WHERE IDX=(?));", str(self.idx))
             in_database = in_database.fetchall()[0][0]
             if not in_database:
-                self.cur.execute("INSERT INTO Location(LocationIDX) VALUES(?);", (self.name, self.beaconIDX))
+                self.cur.execute("INSERT INTO Location(Name, BeaconIDX, ModeratorIDX) VALUES(?,?,?);", (self.name, self.beaconIDX, self.moderatorIDX))
                 self.connect.commit()
             elif in_database:
-                self.cur.execute("UPDATE Location SET LocationIDX=(?) WHERE IDX=(?);", (self.name, self.beaconIDX))
+                self.cur.execute("UPDATE Location SET Name=(?), BeaconIDX=(?), ModeratorIDX=(?) WHERE IDX=(?);", (self.name, self.beaconIDX, self.moderatorIDX, self.idx))
                 self.connect.commit()
 
         except sqlite3.OperationalError as w:
@@ -46,7 +47,7 @@ class Location:
     def close_database(self):
         self.connect.close()
 
-    def get_all(cls):
+    def get_all(cls, moderatorIDX):
         """ Retrieves all Locations form database and returns them as list.
         Returns:
             list(Todo): list of all locations
@@ -57,8 +58,8 @@ class Location:
             cls.cur = cls.connect.cursor()
             cls.location_list = []
 
-            for item in cls.cur.execute("SELECT * FROM Location;"):
-                cls.location_list.append(Location(item[0], item[1], item[2]))
+            for item in cls.cur.execute("SELECT * FROM Location WHERE ModeratorIDX = (?);", moderatorIDX):
+                cls.location_list.append(Location(item[0], item[1], item[2], item[3]))
             return cls.location_list
 
         except sqlite3.OperationalError as w:

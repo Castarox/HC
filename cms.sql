@@ -31,6 +31,7 @@ CREATE TABLE `Location` (
 	`IDX`	INTEGER,
 	`Name`	TEXT,
 	`BeaconIDX`	INTEGER,
+	`ModeratorIDX`	INTEGER,
 	PRIMARY KEY(IDX)
 );
 DROP TABLE `Beacon`;
