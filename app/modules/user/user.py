@@ -54,14 +54,12 @@ class User:
         try:
             connect = sqlite3.connect('cms.db')
             cur = connect.cursor()
-            user = cur.execute("SELECT EXISTS(SELECT * FROM `User` WHERE Login =(?) AND Password =(?));", (user_login, user_password))
-            if(user):
-                cur.execute("SELECT * FROM `User` WHERE Login =(?) AND Password =(?)", (user_login, user_password))
+            cur.execute("SELECT * FROM `User` WHERE Login =(?) AND Password =(?)", (user_login, user_password))
+            try:
                 user = cur.fetchall()[0]
-            if(user):
-                return User(user[1], user[2], user[3], user[4], user[0])
-            else:
+            except:
                 return None
+            return User(user[1], user[2], user[3], user[4], user[0])
 
         except sqlite3.Error:
             if connect:
