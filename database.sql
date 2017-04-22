@@ -53,5 +53,6 @@ INSERT INTO `User` (Login, Password, Level) VALUES ('Marcin', 'xxx', 0);
 INSERT INTO `Moderator` (UserIDX, LocalizationIDX) VALUES (1, 1);
 INSERT INTO `Question` (LocationIDX, Question, Answer1, Answer2, Answer3, CorrectAnswer) VALUES (1, 'where are you now', 'spaceship', 'zoo', 'london', 'codecool');
 INSERT INTO `Location` (Name, BeaconIDX) VALUES ('codecool', 1);
-INSERT INTO 'Beacon' (BeaconIDX) VALUES (1);
+INSERT INTO `Beacon` (BeaconIDX) VALUES (1);
+INSERT INTO `VisitedLocations` (UserIDX, LocationIDX, Visited) VALUES (1, 1, FALSE);
 COMMIT;
