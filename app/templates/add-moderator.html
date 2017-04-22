@@ -10,17 +10,11 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 
 <body>
 
-<p>Dodaj kogos</p>
+<p>Dodaj moderatora</p>
 
 <form method="POST" action="add-moderator">
     <input type="text" name="login" placeholder="login" required>
     <input type="text" name="password" placeholder="password" required>
-    <select class="large-select" name="status">
-        <option selected>Location</option>
-        {% for location in locations %}
-            <option>{{location.name}}</option>
-    </select>
-
 
 </form>
 
