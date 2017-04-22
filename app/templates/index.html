@@ -1,16 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<form action="{{ url_for('index') }}" method="post">
-    <label for="login">Login:</label>
-    <input type="text" id="login" name="login">
-    <label for="password">Password:</label>
-    <input type="text" id="password" name="password">
-    <input type="submit" name="Submit">
-</form>
-</body>
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Abel|Nova+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='pictures/icon.png')}}">
+    <title>Codecool Management System</title>
+    {% endblock %}
+  </head>
+  <body>
+      <body class="loginBody">
+  		{% block loginBody %}
+  		<div class="loginHead">
+              <h1>Log in</h1>
+  		</div>
+  		<div class="loginMenu">
+  			<form action="/" class="loginMenu" method="POST">
+  				<input class="email_input" name="login" type="text" placeholder="Login"><br/>
+  				<input class="password_input" name="password" type="password" placeholder="Password"><br/>
+  				<br/>
+  				<input type="submit" value="Log in">
+  			</form>
+  		</div>
+  	{% endblock %}
+  </body>
 </html>
