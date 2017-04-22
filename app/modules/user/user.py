@@ -50,7 +50,7 @@ class User:
                 print('There was a problem with SQL Data Base')
 
     @staticmethod
-    def isUser(user_login, user_password):
+    def findUser(user_login, user_password):
         try:
             connect = sqlite3.connect('cms.db')
             cur = connect.cursor()
@@ -59,7 +59,9 @@ class User:
             user = cur.fetchall()[0]
             if (user):
                 return User(user[1], user[2], user[3], user[4], user[0])
-
+            else:
+                return None
+            
         except sqlite3.Error:
             if connect:
                 connect.rollback()
