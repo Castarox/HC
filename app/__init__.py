@@ -11,6 +11,23 @@ app.config.from_object('config')
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    # if request.method == "POST":
+    #     login = request.form.get('login')
+    #     password = request.form.get('password')
+    #     person = Moderator.findModerator(login, password)
+    #     if person == None:
+    #         return render_template('error_login.html')
+    #     log_in['logged_in'] = True
+    #     log_in['login'] = person.login
+    #     locations = Location.get_all(1)
+    #     print(locations[0])
+    #     return render_template('layout.html', login=log_in['login'], locations=locations)
+    #
+    locations = Location.get_all(1)
+    return render_template('layout.html', locations=locations)
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
     if request.method == "POST":
         login = request.form.get('login')
         password = request.form.get('password')
@@ -19,14 +36,15 @@ def index():
             return render_template('error_login.html')
         log_in['logged_in'] = True
         log_in['login'] = person.login
-        locations = Location.get_all(1)
-        return render_template('layout.html', login=log_in['login'], locations=locations)
+        return redirect(url_for(index))
 
-    locations = Location.get_all(1)
-    return render_template('index.html', locations=locations)
+    return render_template('index.html')
 
 
 
+@app.route("/layout", methods=['GET', 'POST'])
+def layout1():
+    return redirect(url_for('index'))
 
 @app.route("/add-moderator", methods=['GET', 'POST'])
 def add():
@@ -48,4 +66,4 @@ def add_question(location_id):
     correct = request.form.get('answer4')
     new_question = Question(location_id, question, answer1, answer2, answer3, correct)
     new_question.save()
-    return redirect(url_for('index'))
+    return redirect(url_for('layout1')) # render_template('layout.html')

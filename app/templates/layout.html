@@ -37,10 +37,10 @@
     <a href="/add-location">Add location</a>
 </h3>
     <ul>
-    <!--{% for location in locations %}-->
-        <!--<li>{{location.name}}</li>-->
-    <!--{% endfor %}-->
-        <li><a href="/add_question/1"> Pierwsza lokalizacja </a></li>
+    {% for location in locations %}
+        <li><a href="/add_question/{{loop.index}}"> {{location.name}} </a></li>
+    {% endfor %}
+
     </ul>
 </div>
 
