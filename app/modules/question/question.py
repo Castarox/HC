@@ -63,7 +63,7 @@ class Question:
             cls.question_list = []
 
             for item in cls.cur.execute("SELECT * FROM Question WHERE LocationIDX = (?);", [locationIDX]):
-                cls.question_list.append(Question(item[0], item[1], item[2], item[3],item[4], item[5], item[6]))
+                cls.question_list.append(Question(item[1], item[2], item[3],item[4], item[5], item[6], item[0]))
             return cls.question_list
 
         except sqlite3.OperationalError as w:
@@ -87,7 +87,7 @@ class Question:
 
             cls.cur.execute("SELECT * FROM Question WHERE IDX=(?);", [id])
             question = cls.cur.fetchall()[0]
-            return Question(question[0], question[1], question[2], question[3], question[4], question[5], question[6])
+            return Question(question[1], question[2], question[3], question[4], question[5], question[6], question[0])
 
         except sqlite3.OperationalError as w:
             print("Cant find this {}".format(w))

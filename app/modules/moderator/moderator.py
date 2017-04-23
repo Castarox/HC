@@ -61,7 +61,7 @@ class Moderator:
 
             cls.cur.execute("SELECT * FROM Moderator WHERE IDX=(?);", [id])
             moderator = cls.cur.fetchall()[0]
-            return Moderator(moderator[0], moderator[1], moderator[2])
+            return Moderator(moderator[1], moderator[2], moderator[0])
 
         except sqlite3.OperationalError as w:
             print("Cant find this {}".format(w))

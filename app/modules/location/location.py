@@ -64,7 +64,7 @@ class Location:
             cls.location_list = []
 
             for item in cls.cur.execute("SELECT * FROM Location WHERE ModeratorIDX = (?);", [moderatorIDX]):
-                cls.location_list.append(Location(item[0], item[1], item[2], item[3], item[4], item[5]))
+                cls.location_list.append(Location(item[1], item[2], item[3], item[4], item[5], item[0]))
             return cls.location_list
 
         except sqlite3.OperationalError as w:
