@@ -78,7 +78,7 @@ def remove_question(location_id, question_id):
 def remove_location(location_id):
     location = Location.get_by_id(location_id)
     location.delete()
-    return redirect(url_for('layout1'))
+    return redirect(url_for('locations'))
 
 
 
@@ -92,4 +92,21 @@ def edit_location(location_id):
     location.name = name
     location.beacon_major = beacon
     location.save()
-    return redirect(url_for('index'))
+    return redirect(url_for('locations'))
+
+@app.route("/add_location/", methods=["GET", "POST"])
+def add_location():
+    if request.method == "POST":
+        name = request.form.get('name')
+        beacon = request.form.get('beacon')
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude')
+        moderator_id = session['user']['idx']
+        try:
+            location = Location(name, beacon, moderator_id, latitude, longitude)
+            location.save()
+            return redirect(url_for('locations'))
+        except:
+            return redirect(url_for('add_location'))
+    return render_template('add_location.html')
+
