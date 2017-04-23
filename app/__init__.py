@@ -22,7 +22,7 @@ def login():
         person = Moderator.findModerator(login, password)
         if person == None:
             return render_template('error_login.html')
-        log_in['logged_in'] = True
+        log_in['logged_in'] = "True"
         log_in['login'] = person.login
         return redirect(url_for(index))
 

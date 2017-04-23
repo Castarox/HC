@@ -18,6 +18,8 @@
     {% endblock %}
   </head>
   <body>
+  {% if session['logged_in'] == True %}
+
 {% block nav %}
 <div class="jumbotron text-center">
   <h1>Welcome to admin panel in Cracow Quiz app</h1>
@@ -70,6 +72,6 @@
     <div class="col-sm-2">
     </div>
   </div>
-
+{% endif %}
   </body>
 </html>
