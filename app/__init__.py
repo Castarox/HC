@@ -16,10 +16,10 @@ def locations():
     return render_template('layout.html', locations = locations)
 
 
-@app.before_request
-def before_request():
-    if 'user' not in session and request.endpoint != 'login':
-        return redirect(url_for('login'))
+# @app.before_request
+# def before_request():
+#     if 'user' not in session and request.endpoint != 'login':
+#         return redirect(url_for('login'))
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -186,23 +186,6 @@ def register():
 
     value = {'status': True}
     return jsonify(value)
-
-
-@app.route("/question/edit/<location_id>", methods=["GET", "POST"])
-def add_location():
-    if request.method == "POST":
-        name = request.form.get('name')
-        beacon = request.form.get('beacon')
-        latitude = request.form.get('latitude')
-        longitude = request.form.get('longitude')
-        moderator_id = session['user']['idx']
-        try:
-            location = Location(name, beacon, moderator_id, latitude, longitude)
-            location.save()
-            return redirect(url_for('locations'))
-        except:
-            return redirect(url_for('add_location'))
-    return render_template('add_location.html')
 
 
 # @app.route("/question/edit/<location_id>", methods=["GET", "POST"])
