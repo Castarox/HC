@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session as
 from app.modules.decorator import *
 from app.modules.moderator.moderator import Moderator
 from app.modules.location.location import Location
+from app.modules.question.question import Question
 
 app = Flask(__name__)
 
@@ -26,6 +27,7 @@ def index():
 
 
 
+
 @app.route("/add-moderator", methods=['GET', 'POST'])
 def add():
     if request.method == "GET":
@@ -35,3 +37,15 @@ def add():
         new_moderator.save()
         return render_template('add-moderator.html', added="Moderator added.")
 
+@app.route("/add_question/<location_id>", methods=['GET', 'POST'])
+def add_question(location_id):
+    if request.method == "GET":
+        return render_template('add_question.html')
+    question = request.form.get('question')
+    answer1 = request.form.get('answer1')
+    answer2 = request.form.get('answer2')
+    answer3 = request.form.get('answer3')
+    correct = request.form.get('answer4')
+    new_question = Question(location_id, question, answer1, answer2, answer3, correct)
+    new_question.save()
+    return redirect(url_for('index'))
