@@ -13,6 +13,7 @@ CREATE TABLE `Moderator` (
 	`IDX`	INTEGER,
 	`Login`	INTEGER,
 	`Password` INTEGER,
+	`Type` TEXT,
 	PRIMARY KEY(IDX)
 );
 DROP TABLE `Question`;
@@ -48,7 +49,8 @@ CREATE TABLE `VisitedLocations` (
 
 
 INSERT INTO `User` (Login, Password, Level) VALUES ('Marcin', 'xxx', 0);
-INSERT INTO `Moderator` (IDX, Login, Password) VALUES (1, 'Marcin', 'xxx');
+INSERT INTO `Moderator` (IDX, Login, Password, Type) VALUES (1, 'Marcin', 'xxx', 'Moderator');
+INSERT INTO `Moderator` (Login, Password, Type) VALUES ('Seb', 'x', 'Admin');
 INSERT INTO `Question` (LocationIDX, Question, Answer1, Answer2, Answer3, CorrectAnswer) VALUES (1, 'where are you now', 'spaceship', 'zoo', 'london', 'codecool');
 INSERT INTO `Location` (Name, BeaconMajor, ModeratorIDX, Latitude, Longitude) VALUES ('codecool', 1, 1, 66, 66);
 INSERT INTO `VisitedLocations` (UserIDX, LocationIDX, Visited) VALUES (1, 1, 'False');
