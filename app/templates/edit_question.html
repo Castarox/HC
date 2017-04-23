@@ -1,18 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Add question</title>
+    <meta charset="utf-8">
+    <meta name="viewpoint" content="witdh=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Abel|Nova+Mono" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <title>Your site</title>
 </head>
-<body>
-<form action="/add_question/{{location_id}}" method="POST">
-    <input type="text" name="question" placeholder="Type your question"><br><br>
-    <input type="text" name="answer1" placeholder="Type your answer 1"><br>
-    <input type="text" name="answer2" placeholder="Type your answer 2"><br>
-    <input type="text" name="answer3" placeholder="Type your answer 3"><br>
-    <input type="text" name="answer4" placeholder="Correct answer"><br><br>
-    <input type="submit">
-</form>
-<a href="/questions/{{ location_id }}"><button type="button">Go back</button></a>
-</body>
+
+  <body>
+
+  <div class="jumbotron text-center">
+  <h1>Edit question</h1>
+      <p>{{question.question}}</p>
+</div>
+
+<div class="container">
+    <div class="form-group">
+    <form action="/edit/question/{{question.idx}}" method="POST">
+      <label for="question">Your question:</label>
+      <input type="text" class="form-control" id="question" value="{{question.question}}" name="question" required>
+        <br>
+      <label for="answer1">Answer 1</label>
+      <input type="text" class="form-control" id="answer1" value="{{question.answer1}}" name="answer1" required>
+        <br>
+      <label for="answer2">Answer 2</label>
+      <input type="text" class="form-control" id="answer2" value="{{question.answer2}}" name="answer2" required>
+        <br>
+      <label for="answer3">Answer 3</label>
+      <input type="text" class="form-control" id="answer3" value="{{question.answer3}}" name="answer3" required>
+        <br>
+      <label for="answer4">Answer 4 - Correct answer</label>
+      <input type="text" class="form-control" id="answer4" value="{{question.correctAnswer}}" name="answer4" required>
+        <br><br>
+        <h3>
+        <center><button id="submit-btn" type="submit" class="btn btn-default submit-btn">Submit</button></center>
+        </h3>
+  </form>
+    </div>
+</div>
+
+  </body>
 </html>

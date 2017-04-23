@@ -319,3 +319,17 @@ label:hover:before {
   letter-spacing: 2px;
   word-spacing: 2px;
 }
+
+label {
+  font-size: 27px;
+}
+
+.form-control {
+font-size: 20px;
+}
+
+.submit-btn {
+height: 75px;
+width: 150px;
+font-size: 24px;
+}
