@@ -58,7 +58,9 @@ def add():
 @app.route("/add_question/<location_id>", methods=['GET', 'POST'])
 def add_question(location_id):
     if request.method == "GET":
-        return render_template('add_question.html')
+        return render_template('add_question.html', location_id=location_id)
+    print("LCOATION ID")
+    print(location_id)
     question = request.form.get('question')
     answer1 = request.form.get('answer1')
     answer2 = request.form.get('answer2')
@@ -66,4 +68,12 @@ def add_question(location_id):
     correct = request.form.get('answer4')
     new_question = Question(location_id, question, answer1, answer2, answer3, correct)
     new_question.save()
-    return redirect(url_for('layout1')) # render_template('layout.html')
+    return redirect(url_for('layout1'))
+
+
+@app.route("/questions/<location_id>", methods=['GET', 'POST'])
+def view_questions(location_id):
+    if request.method == "GET":
+        location = Location.get_by_id(location_id)
+        questions = Question.get_all(location_id)
+        return render_template('questions.html', location=location, questions=questions)
