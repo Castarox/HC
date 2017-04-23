@@ -88,7 +88,7 @@ class Location:
 
             cls.cur.execute("SELECT * FROM Location WHERE IDX=(?);", [id])
             location = cls.cur.fetchall()[0]
-            return Location(location[0], location[1], location[2], location[3], location[4], location[5])
+            return Location(location[1], location[2], location[3], location[4], location[5], location[0])
 
         except sqlite3.OperationalError as w:
             print("Cant find this {}".format(w))
