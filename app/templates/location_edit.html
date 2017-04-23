@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 <head>
-    {% block head %}
     <meta charset="utf-8">
     <meta name="viewpoint" content="witdh=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,49 +9,28 @@
     <link href="https://fonts.googleapis.com/css?family=Abel|Nova+Mono" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-
     <title>Your site</title>
-    {% endblock %}
 </head>
 
   <body>
 
   <div class="jumbotron text-center">
-  <h1>Welcome to Cracow Quiz app</h1>
+  <h1>Edit name</h1>
+      <p>{{location.name}}</p>
 </div>
 
 <div class="container">
-
-
-{% for location in locations %}
-    <h3>
-    {{loop.index}}. {{ location.name }}<br>
-        <a href="/edit/{{ location.idx }}" ><button>Edit</button></a>
-        <a href="/remove/{{ location.idx }}"><button>Remove</button></a>
-        <a href="/questions/{{ location.idx }}"><button>View questions</button></a>
-    </h3><br><br>
-{% endfor %}
-
-<h3>
-    <a href="/add-location">Add location</a>
-</h3>
+    <div class="form-group">
+    <form action="/edit/{{location.idx}}" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" value="{{location.name}}" name="name">
+        <br>
+      <label for="beacon">Beacon major</label>
+      <input type="text" class="form-control" id="beacon" value="{{location.beacon_major}}" name="beacon">
+        <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+    </div>
 </div>
 
-
-
-
-
-
-        <!--{% block solid_component %}-->
-        <!--<aside class='solid_component'>-->
-        <!--Logged as {{ login }}-->
-        <!--<ul id="dupa">-->
-            <!--<li>1</li>-->
-            <!--<li>2</li>-->
-            <!--<li>3</li>-->
-        <!--</ul>-->
-        <!--<p id="czerw">jakis tekst</p>-->
-        <!--</aside>-->
-        <!--{% endblock %}-->
   </body>
 </html>

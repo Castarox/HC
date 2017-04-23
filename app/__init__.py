@@ -80,3 +80,16 @@ def remove_location(location_id):
     location.delete()
     return redirect(url_for('layout1'))
 
+
+
+@app.route("/edit/<location_id>", methods=["GET", "POST"])
+def edit_location(location_id):
+    location = Location.get_by_id(location_id)
+    if request.method == "GET":
+        return render_template('location_edit.html', location=location)
+    name = request.form.get('name')
+    beacon = request.form.get('beacon')
+    location.name = name
+    location.beacon_major = beacon
+    location.save()
+    return redirect(url_for('index'))
