@@ -34,6 +34,7 @@ def login():
 def layout1():
     return redirect(url_for('index'))
 
+
 @app.route("/add-moderator", methods=['GET', 'POST'])
 def add():
     if request.method == "GET":
@@ -80,3 +81,4 @@ def remove_location(location_id):
     location = Location.get_by_id(location_id)
     location.delete()
     return redirect(url_for('layout1'))
+
