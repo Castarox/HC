@@ -34,6 +34,7 @@ def login():
 def layout1():
     return redirect(url_for('index'))
 
+
 @app.route("/add-moderator", methods=['GET', 'POST'])
 def add():
     if request.method == "GET":
@@ -82,6 +83,7 @@ def remove_location(location_id):
     return redirect(url_for('layout1'))
 
 
+
 @app.route("/edit/<location_id>", methods=["GET", "POST"])
 def edit_location(location_id):
     location = Location.get_by_id(location_id)
@@ -93,4 +95,3 @@ def edit_location(location_id):
     location.beacon_major = beacon
     location.save()
     return redirect(url_for('index'))
-
