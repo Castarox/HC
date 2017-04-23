@@ -50,5 +50,52 @@ class Question:
                 self.connect.rollback()
                 print('There was a problem with SQL Data Base')
 
+    @classmethod
+    def get_all(cls, locationIDX):
+        """ Retrieves all Questions form database and returns them as list.
+        Returns:
+            list(question): list of all questions
+        """
+        try:
+            # connect to database
+            cls.connect = sqlite3.connect("cms.db")
+            cls.cur = cls.connect.cursor()
+            cls.question_list = []
+
+            for item in cls.cur.execute("SELECT * FROM Question WHERE LocationIDX = (?);", [locationIDX]):
+                cls.question_list.append(Question(item[1], item[2], item[3],item[4], item[5], item[6], item[0]))
+            return cls.question_list
+
+        except sqlite3.OperationalError as w:
+            print("Cant get this {}".format(w))
+
+        except sqlite3.Error:
+            if cls.connect:
+                cls.connect.rollback()
+
+    @classmethod
+    def get_by_id(cls, id):
+        """ Retrieves question item with given id from database.
+        Args:
+            id(int): item id
+        Returns:
+            Question: Question object with a given id
+        """
+        try:
+            cls.connect = sqlite3.connect("cms.db")
+            cls.cur = cls.connect.cursor()
+
+            cls.cur.execute("SELECT * FROM Question WHERE IDX=(?);", [id])
+            question = cls.cur.fetchall()[0]
+            return Question(question[1], question[2], question[3], question[4], question[5], question[6], question[0])
+
+        except sqlite3.OperationalError as w:
+            print("Cant find this {}".format(w))
+
+        except sqlite3.Error:
+            if cls.connect:
+                cls.connect.rollback()
+                print('There was a problem with SQL Data Base')
+
     def close_database(self):
         self.connect.close()

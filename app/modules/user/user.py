@@ -4,7 +4,7 @@ import sqlite3
 
 class User:
 
-    def __init__(self, login, password, level, status, idx=0):
+    def __init__(self, login, password, level, points, idx=0):
         self.connect = sqlite3.connect("cms.db")
         self.cur = self.connect.cursor()
         self.idx = idx
@@ -47,6 +47,29 @@ class User:
         except sqlite3.Error:
             if self.connect:
                 self.connect.rollback()
+                print('There was a problem with SQL Data Base')
+
+    def get_by_id(cls, id):
+        """ Retrieves user item with given id from database.
+        Args:
+            id(int): item id
+        Returns:
+            User: User object with a given id
+        """
+        try:
+            cls.connect = sqlite3.connect("cms.db")
+            cls.cur = cls.connect.cursor()
+
+            cls.cur.execute("SELECT * FROM User WHERE IDX=(?);", [id])
+            user = cls.cur.fetchall()[0]
+            return User(user[1], user[2], user[3], user[4], user[0])
+
+        except sqlite3.OperationalError as w:
+            print("Cant find this {}".format(w))
+
+        except sqlite3.Error:
+            if cls.connect:
+                cls.connect.rollback()
                 print('There was a problem with SQL Data Base')
 
     @staticmethod

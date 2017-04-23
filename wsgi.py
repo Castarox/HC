@@ -1,7 +1,6 @@
 from app import app
 from app.modules.sql.sql import Sql
 from app.modules.question.question import Question
-from app.modules.beacon.beacon import Beacon
 from app.modules.location.location import Location
 
 
