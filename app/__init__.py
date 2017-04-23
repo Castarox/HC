@@ -90,8 +90,12 @@ def edit_location(location_id):
         return render_template('location_edit.html', location=location)
     name = request.form.get('name')
     beacon = request.form.get('beacon')
+    longitude = request.form.get('longitude')
+    latitude = request.form.get('latitude')
     location.name = name
     location.beacon_major = beacon
+    location.longitude = longitude
+    location.latitude = latitude
     location.save()
     return redirect(url_for('locations'))
 
@@ -182,4 +186,21 @@ def register():
 
     value = {'status': True}
     return jsonify(value)
+
+
+@app.route("/question/edit/<location_id>", methods=["GET", "POST"])
+def add_location():
+    if request.method == "POST":
+        name = request.form.get('name')
+        beacon = request.form.get('beacon')
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude')
+        moderator_id = session['user']['idx']
+        try:
+            location = Location(name, beacon, moderator_id, latitude, longitude)
+            location.save()
+            return redirect(url_for('locations'))
+        except:
+            return redirect(url_for('add_location'))
+    return render_template('add_location.html')
 

@@ -283,5 +283,39 @@ label:hover:before {
 
 
 .name {
-color=red;
+    display: flex;
+    height: 100px;
+    width: 500px;
+    background-color: powderblue;
+    justify-content: center;
+    align-items: center;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+#question_name {
+    display: flex;
+    height: content;
+    background-color: yellow;
+    justify-content: center;
+    align-items: center;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding: 15px
+}
+
+.div_text_shadow
+{
+  background-color: inherit;
+  color: #000000;
+  height: content;
+  width: content;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 32px;
+  font-variant: normal;
+  letter-spacing: 2px;
+  word-spacing: 2px;
 }
