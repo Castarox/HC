@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewpoint" content="witdh=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Abel|Nova+Mono" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/jquery.js') }}" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <title>Your site</title>
+</head>
+
+  <body>
+
+  <div class="jumbotron text-center">
+  <h1>Edit name</h1>
+      <p>{{location.name}}</p>
+</div>
+
+<div class="container">
+    <div class="form-group">
+    <form action="/edit/{{location.idx}}" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" value="{{location.name}}" name="name">
+        <br>
+      <label for="beacon">Beacon major</label>
+      <input type="text" class="form-control" id="beacon" value="{{location.beacon_major}}" name="beacon">
+        <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+    </div>
+</div>
+
+  </body>
+</html>
