@@ -24,7 +24,9 @@
 
 {% for question in questions %}
     <h3>
-    {{loop.index}}. {{ question.question }}<br>
+        <div id="question_name">
+    <div class="div_text_shadow ">{{loop.index}}. {{ question.question }}<br></div>
+        </div><br>
         <a href="/edit/{{ location.idx }}" ><button>Edit</button></a>
         <a href="/remove/{{ location.idx }}/{{ question.idx }}"><button>Remove</button></a>
 

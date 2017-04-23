@@ -27,8 +27,9 @@
 {% for location in locations %}
     <h3>
         <div class="name">
-    {{loop.index}}. {{ location.name }}<br>
+    <div class="div_text_shadow">{{loop.index}}. {{ location.name }}</div><br>
         </div>
+        <br>
         <a href="/edit/{{ location.idx }}" ><button>Edit</button></a>
         <a href="/remove/{{ location.idx }}"><button>Remove</button></a>
         <a href="/questions/{{ location.idx }}"><button>View questions</button></a>
