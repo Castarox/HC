@@ -53,7 +53,7 @@ def add_question(location_id):
     correct = request.form.get('answer4')
     new_question = Question(location_id, question, answer1, answer2, answer3, correct)
     new_question.save()
-    return redirect(url_for('layout1'))
+    return redirect(url_for('locations'))
 
 
 @app.route("/questions/<location_id>", methods=['GET', 'POST'])
