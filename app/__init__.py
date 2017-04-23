@@ -66,7 +66,7 @@ def view_questions(location_id):
 
 
 @app.route("/remove/<location_id>/<question_id>")
-def remove(location_id, question_id):
+def remove_question(location_id, question_id):
     question = Question.get_by_id(question_id)
     question.delete()
     questions = Question.get_all(location_id)
@@ -74,3 +74,9 @@ def remove(location_id, question_id):
     # return render_template('questions.html', location=location, questions=questions)
     return render_template('questions.html', location=location, questions=questions)
 
+
+@app.route("/remove/<location_id>")
+def remove_location(location_id):
+    location = Location.get_by_id(location_id)
+    location.delete()
+    return redirect(url_for('layout1'))
