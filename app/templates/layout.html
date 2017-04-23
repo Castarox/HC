@@ -26,7 +26,7 @@
 
 {% for location in locations %}
     <h3>
-    {{ location.name|urlize(40, target='_blank') }}
+    {{ location.name }}
         <a href="/edit/{{ location.idx }}" ><button>Edit</button></a>
         <a href="/remove/{{ location.idx }}"><button>Remove</button></a>
         <a href="/add_question/{{ location.idx }}"><button>Add question</button></a>
