@@ -204,3 +204,20 @@ def add_location():
             return redirect(url_for('add_location'))
     return render_template('add_location.html')
 
+
+# @app.route("/question/edit/<location_id>", methods=["GET", "POST"])
+# def add_location():
+#     if request.method == "POST":
+#         name = request.form.get('name')
+#         beacon = request.form.get('beacon')
+#         latitude = request.form.get('latitude')
+#         longitude = request.form.get('longitude')
+#         moderator_id = session['user']['idx']
+#         try:
+#             location = Location(name, beacon, moderator_id, latitude, longitude)
+#             location.save()
+#             return redirect(url_for('locations'))
+#         except:
+#             return redirect(url_for('add_location'))
+#     return render_template('add_location.html')
+
