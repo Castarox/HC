@@ -30,14 +30,11 @@ DROP TABLE `Location`;
 CREATE TABLE `Location` (
 	`IDX`	INTEGER,
 	`Name`	TEXT,
-	`BeaconIDX`	INTEGER,
+	`BeaconMajor`	INTEGER,
 	`ModeratorIDX`	INTEGER,
-	PRIMARY KEY(IDX)
-);
-DROP TABLE `Beacon`;
-CREATE TABLE `Beacon` (
-	`IDX`	        INTEGER,
-	`BeaconIDX`	    INTEGER,
+	`Latitude`	INTEGER,
+	`Longitude`	INTEGER,
+
 	PRIMARY KEY(IDX)
 );
 DROP TABLE `VisitedLocations`;
@@ -53,7 +50,6 @@ CREATE TABLE `VisitedLocations` (
 INSERT INTO `User` (Login, Password, Level) VALUES ('Marcin', 'xxx', 0);
 INSERT INTO `Moderator` (IDX, Login, Password) VALUES (1, 'Marcin', 'xxx');
 INSERT INTO `Question` (LocationIDX, Question, Answer1, Answer2, Answer3, CorrectAnswer) VALUES (1, 'where are you now', 'spaceship', 'zoo', 'london', 'codecool');
-INSERT INTO `Location` (Name, BeaconIDX, ModeratorIDX) VALUES ('codecool', 1, 1);
-INSERT INTO `Beacon` (BeaconIDX) VALUES (1);
+INSERT INTO `Location` (Name, BeaconMajor, ModeratorIDX, Latitude, Longitude) VALUES ('codecool', 1, 1, 66, 66);
 INSERT INTO `VisitedLocations` (UserIDX, LocationIDX, Visited) VALUES (1, 1, 'False');
 COMMIT;
