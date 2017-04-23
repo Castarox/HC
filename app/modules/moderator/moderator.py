@@ -94,4 +94,3 @@ class Moderator:
 
     def close_database(self):
         self.connect.close()
-
