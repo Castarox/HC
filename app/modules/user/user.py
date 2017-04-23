@@ -4,7 +4,7 @@ import sqlite3
 
 class User:
 
-    def __init__(self, login, password, level, status, idx=0):
+    def __init__(self, login, password, level, points, idx=0):
         self.connect = sqlite3.connect("cms.db")
         self.cur = self.connect.cursor()
         self.idx = idx
