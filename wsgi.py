@@ -13,4 +13,4 @@ if __name__ == '__main__':
     # bikon1.save()
     # lokacja1 = Location("fsf", 4)
     # lokacja1.save()
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
