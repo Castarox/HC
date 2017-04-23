@@ -26,7 +26,7 @@
     <h3>
     {{loop.index}}. {{ question.question }}<br>
         <a href="/edit/{{ location.idx }}" ><button>Edit</button></a>
-        <a href="/remove/{{ location.idx }}"><button>Remove</button></a>
+        <a href="/remove/{{ location.idx }}/{{ question.idx }}"><button>Remove</button></a>
 
 
     </h3><br><br>
@@ -36,6 +36,6 @@
     <a href="/add_question/{{ location.idx }}">Add question</a>
 </h3>
 </div>
-  
+
   </body>
 </html>

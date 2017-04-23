@@ -11,18 +11,6 @@ app.config.from_object('config')
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    # if request.method == "POST":
-    #     login = request.form.get('login')
-    #     password = request.form.get('password')
-    #     person = Moderator.findModerator(login, password)
-    #     if person == None:
-    #         return render_template('error_login.html')
-    #     log_in['logged_in'] = True
-    #     log_in['login'] = person.login
-    #     locations = Location.get_all(1)
-    #     print(locations[0])
-    #     return render_template('layout.html', login=log_in['login'], locations=locations)
-    #
     locations = Location.get_all(1)
     return render_template('layout.html', locations=locations)
 
@@ -59,8 +47,6 @@ def add():
 def add_question(location_id):
     if request.method == "GET":
         return render_template('add_question.html', location_id=location_id)
-    print("LCOATION ID")
-    print(location_id)
     question = request.form.get('question')
     answer1 = request.form.get('answer1')
     answer2 = request.form.get('answer2')
@@ -77,3 +63,14 @@ def view_questions(location_id):
         location = Location.get_by_id(location_id)
         questions = Question.get_all(location_id)
         return render_template('questions.html', location=location, questions=questions)
+
+
+@app.route("/remove/<location_id>/<question_id>")
+def remove(location_id, question_id):
+    question = Question.get_by_id(question_id)
+    question.delete()
+    questions = Question.get_all(location_id)
+    location = Location.get_by_id(location_id)
+    # return render_template('questions.html', location=location, questions=questions)
+    return render_template('questions.html', location=location, questions=questions)
+
