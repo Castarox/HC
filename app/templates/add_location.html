@@ -15,30 +15,27 @@
   <body>
 
   <div class="jumbotron text-center">
-  <h1>Questions</h1>
-      <p>{{location.name}}</p>
+  <h1>Add Location</h1>
 </div>
 
 <div class="container">
-
-
-{% for question in questions %}
-    <h3>
-    {{loop.index}}. {{ question.question }}<br>
-        <a href="/edit/{{ location.idx }}" ><button>Edit</button></a>
-        <a href="/remove/{{ location.idx }}/{{ question.idx }}"><button>Remove</button></a>
-
-
-    </h3><br><br><br>
-{% endfor %}
-
-<h3>
-    <a href="/add_question/{{ location.idx }}">Add question</a>
-</h3>
-    <br><br>
-    <h3>
-        <a href="/questions/{{ location.idx }}"><button type="button">Go back</button></a>
-    </h3>
+    <div class="form-group">
+    <form action="/add_location/" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name">
+        <br>
+      <label for="beacon">Beacon major</label>
+      <input type="text" class="form-control" id="beacon" name="beacon">
+        <br>
+      <label for="latitude">Latitude</label>
+      <input type="text" class="form-control" id="latitude" name="latitude">
+        <br>
+      <label for="longitude">Longitude</label>
+      <input type="text" class="form-control" id="longitude"  name="longitude">
+        <br>
+        <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+    </div>
 </div>
 
   </body>

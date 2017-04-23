@@ -4,12 +4,13 @@ import sqlite3
 
 class Moderator:
 
-    def __init__(self, login, password, idx=0):
+    def __init__(self, login, password, type, idx=0):
         self.connect = sqlite3.connect("cms.db")
         self.cur = self.connect.cursor()
         self.idx = idx
         self.login = login
         self.password = password
+        self.type = type
 
     def save(self):
         """ Saves/updates moderator item in database """
@@ -17,12 +18,12 @@ class Moderator:
             in_database = self.cur.execute("SELECT EXISTS(SELECT * FROM Moderator WHERE IDX=(?));", str(self.idx))
             in_database = in_database.fetchall()[0][0]
             if not in_database:
-                self.cur.execute("INSERT INTO Moderator(Login, Password) VALUES(?,?);",
+                self.cur.execute("INSERT INTO Moderator(Login, Password, Type) VALUES(?,?,?);",
                 (self.login, self.password))
                 self.connect.commit()
             elif in_database:
-                self.cur.execute("UPDATE Moderator SET Login=(?), Password=(?) WHERE IDX=(?);",
-                                 (self.login, self.password, str(self.idx)))
+                self.cur.execute("UPDATE Moderator SET Login=(?), Password=(?), Type=(?) WHERE IDX=(?);",
+                                 (self.login, self.password, self.type, str(self.idx)))
                 self.connect.commit()
 
         except sqlite3.OperationalError as w:
@@ -61,7 +62,7 @@ class Moderator:
 
             cls.cur.execute("SELECT * FROM Moderator WHERE IDX=(?);", [id])
             moderator = cls.cur.fetchall()[0]
-            return Moderator(moderator[1], moderator[2], moderator[0])
+            return Moderator(moderator[1], moderator[2], moderator[3], moderator[0])
 
         except sqlite3.OperationalError as w:
             print("Cant find this {}".format(w))
@@ -81,7 +82,7 @@ class Moderator:
                 moderator = cur.fetchall()[0]
             except:
                 return None
-            return Moderator(moderator[1], moderator[2], moderator[0])
+            return Moderator(moderator[1], moderator[2], moderator[3], moderator[0])
 
         except sqlite3.Error:
             if connect:
@@ -93,4 +94,3 @@ class Moderator:
 
     def close_database(self):
         self.connect.close()
-

@@ -8,31 +8,29 @@ app = Flask(__name__)
 
 app.config.from_object('config')
 
+@app.route('/locations/')
+def locations():
+    user = session['user']
+    locations = Location.get_all(user['idx'])
+    return render_template('layout.html', locations = locations)
+
+
+@app.before_request
+def before_request():
+    if 'user' not in session and request.endpoint != 'login':
+        return redirect(url_for('login'))
+
 
 @app.route("/", methods=['GET', 'POST'])
-def index():
-    locations = Location.get_all(1)
-    return render_template('layout.html', locations=locations)
-
-@app.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        login = request.form.get('login')
-        password = request.form.get('password')
-        person = Moderator.findModerator(login, password)
-        if person == None:
-            return render_template('error_login.html')
-        log_in['logged_in'] = "True"
-        log_in['login'] = person.login
-        return redirect(url_for(index))
-
-    return render_template('index.html')
-
-
-
-@app.route("/layout", methods=['GET', 'POST'])
-def layout1():
-    return redirect(url_for('index'))
+    if request.method == 'POST':
+        user = Moderator.findModerator(request.form['login'], request.form['password'])
+        if user:
+            user = {'name': user.login, 'type': user.type, 'idx': user.idx}
+            session['user'] = user
+            return redirect(url_for('locations'))
+        return redirect(url_for('login'))
+    return render_template("login.html")
 
 
 @app.route("/add-moderator", methods=['GET', 'POST'])
@@ -80,7 +78,7 @@ def remove_question(location_id, question_id):
 def remove_location(location_id):
     location = Location.get_by_id(location_id)
     location.delete()
-    return redirect(url_for('layout1'))
+    return redirect(url_for('locations'))
 
 
 
@@ -94,4 +92,21 @@ def edit_location(location_id):
     location.name = name
     location.beacon_major = beacon
     location.save()
-    return redirect(url_for('index'))
+    return redirect(url_for('locations'))
+
+@app.route("/add_location/", methods=["GET", "POST"])
+def add_location():
+    if request.method == "POST":
+        name = request.form.get('name')
+        beacon = request.form.get('beacon')
+        latitude = request.form.get('latitude')
+        longitude = request.form.get('longitude')
+        moderator_id = session['user']['idx']
+        try:
+            location = Location(name, beacon, moderator_id, latitude, longitude)
+            location.save()
+            return redirect(url_for('locations'))
+        except:
+            return redirect(url_for('add_location'))
+    return render_template('add_location.html')
+
