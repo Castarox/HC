@@ -25,8 +25,8 @@ def before_request():
 def login():
     if request.method == 'POST':
         user = Moderator.findModerator(request.form['login'], request.form['password'])
-        user = {'name': user.login, 'type': user.type, 'idx': user.idx}
         if user:
+            user = {'name': user.login, 'type': user.type, 'idx': user.idx}
             session['user'] = user
             return redirect(url_for('locations'))
         return redirect(url_for('login'))
